@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} - {{ member.first_name }} {{ member.last_name }}{% endblock %}
+{% block page_title %}Detalles de {{ member.first_name }} {{ member.last_name }}{% endblock %}
+
+{% block content %}
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-2xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+            <div><strong>Nombre:</strong> {{ member.first_name }}</div>
+            <div><strong>Apellido:</strong> {{ member.last_name }}</div>
+            <div><strong>Relación:</strong> {{ member.get_relationship_display }}</div>
+            <div><strong>Fecha de Nacimiento:</strong> {{ member.birth_date|default_if_none:"N/A" }}</div>
+            <div><strong>Email:</strong> {{ member.email|default_if_none:"N/A" }}</div>
+            <div><strong>Teléfono:</strong> {{ member.phone_number|default_if_none:"N/A" }}</div>
+            <div class="col-span-2"><strong>Dirección:</strong> {{ member.address|default_if_none:"N/A" }}</div>
+        </div>
+
+        <div class="flex justify-end space-x-4 mt-8">
+            <a href="{% url 'member_update' pk=member.pk %}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition duration-300">
+                Editar
+            </a>
+            <a href="{% url 'member_delete' pk=member.pk %}" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md shadow-md transition duration-300">
+                Eliminar
+            </a>
+            <a href="{% url 'member_list' %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-md shadow-md transition duration-300">
+                Volver a la Lista
+            </a>
+        </div>
+    </div>
+{% endblock %}
